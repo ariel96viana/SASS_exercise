@@ -1,0 +1,99 @@
+@use "./config/reset.scss";
+@use "./config/variaveis.scss";
+@use "sass:math";
+
+@mixin linkDecorationAndColor() {
+  text-decoration: none;
+  color: variaveis.$lightFont;
+}
+
+@function fromPxToEm($actualPx, $mainPx: 16px) {
+  @return math.div($actualPx, $mainPx) + em;
+}
+
+header {
+  background-color: variaveis.$corPrincipal;
+}
+
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  margin-bottom: fromPxToEm(55px);
+
+  h2 {
+    font-size: fromPxToEm(24px);
+  }
+}
+
+header > .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  height: fromPxToEm(106px);
+  font-weight: bold;
+}
+
+.menu {
+  display: flex;
+  gap: fromPxToEm(24px);
+
+  a {
+    @include linkDecorationAndColor();
+  }
+}
+li {
+  list-style: none;
+}
+
+.section {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 32%);
+  gap: 0.5% 1%;
+  flex-wrap: wrap;
+
+  .product-item {
+    margin-top: fromPxToEm(40px);
+    display: flex;
+    flex-direction: column;
+    img {
+      width: 100%;
+      border-radius: 16px;
+      margin-bottom: 6px;
+    }
+
+    .product-button {
+      display: block;
+      @include linkDecorationAndColor();
+      background-color: variaveis.$specialColor;
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+      height: fromPxToEm(35px);
+      border-radius: 8px;
+      margin-top: 8px;
+      padding: 8px;
+    }
+  }
+}
+
+@media screen and (max-width: variaveis.$tablet) {
+  .container {
+    width: 80%;
+  }
+  .products {
+    grid-template-columns: repeat(2, 50%);
+  }
+}
+@media screen and (max-width: variaveis.$mobile) {
+  .products {
+    grid-template-columns: repeat(1, 100%);
+  }
+}
